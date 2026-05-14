@@ -36,11 +36,8 @@
   }
 
   body {
-    background: #ebedee;
-    background-image:
-      radial-gradient(at 0% 0%, hsla(197, 68%, 32%, 0.15) 0px, transparent 50%),
-      radial-gradient(at 50% 0%, hsla(160, 68%, 37%, 0.1) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(20, 68%, 50%, 0.1) 0px, transparent 50%);
+    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), url('booking_bg.png') no-repeat center center fixed;
+    background-size: cover;
     font-family: var(--font-main);
     color: var(--color-text-primary);
     font-size: 14px;
@@ -91,6 +88,7 @@
   /* Cards & Interaction */
   .card {
     background: var(--glass);
+    backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid var(--glass-border);
     border-radius: var(--border-radius-xl);
     box-shadow: var(--shadow-premium);
@@ -120,7 +118,7 @@
     display: flex;
     gap: 8px;
     background: rgba(255, 255, 255, 0.6);
-    
+    backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     padding: 8px;
     border-radius: 60px;
@@ -153,6 +151,7 @@
   /* Form Fields */
   .field {
     margin-bottom: 14px;
+    position: relative;
   }
 
   .field label {
@@ -396,6 +395,7 @@
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
   }
+
   .toggle-switch {
     width: 44px;
     height: 24px;
@@ -406,9 +406,11 @@
     cursor: pointer;
     flex-shrink: 0;
   }
+
   .toggle-switch.on {
     background: var(--color-primary);
   }
+
   .toggle-switch::after {
     content: '';
     position: absolute;
@@ -419,8 +421,9 @@
     background: white;
     border-radius: 50%;
     transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
+
   .toggle-switch.on::after {
     left: 22px;
   }
@@ -589,155 +592,225 @@
     background: rgba(26, 107, 138, 0.2);
     border-radius: 10px;
   }
-    .payment-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      animation: fadeIn 0.4s ease;
-    }
 
-    .payment-card {
-      background: white;
-      width: 440px;
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow: 0 40px 100px -20px rgba(0,0,0,0.3);
-      position: relative;
-    }
+  .payment-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.4s ease;
+  }
 
-    .payment-tabs {
-      display: flex;
-      background: #f1f5f9;
-      padding: 4px;
-      border-radius: 14px;
-      margin-bottom: 24px;
-    }
+  .payment-card {
+    background: white;
+    width: 440px;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.3);
+    position: relative;
+  }
 
-    .payment-tab {
-      flex: 1;
-      padding: 10px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: 700;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: 0.3s;
-      color: #64748b;
-    }
+  .payment-tabs {
+    display: flex;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 14px;
+    margin-bottom: 24px;
+  }
 
-    .payment-tab.active {
-      background: white;
-      color: var(--color-primary);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    }
+  .payment-tab {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    color: #64748b;
+  }
 
-    .payment-input-group {
-      margin-bottom: 20px;
-    }
+  .payment-tab.active {
+    background: white;
+    color: var(--color-primary);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
 
-    .payment-input-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: #64748b;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+  .payment-input-group {
+    margin-bottom: 20px;
+  }
 
-    .payment-input {
-      width: 100%;
-      padding: 14px 16px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 12px;
-      font-size: 14px;
-      font-family: inherit;
-      outline: none;
-      transition: 0.3s;
-    }
+  .payment-input-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
 
-    .payment-input:focus {
-      border-color: var(--color-primary);
-      box-shadow: 0 0 0 4px rgba(26, 107, 138, 0.1);
-    }
+  .payment-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s;
+  }
 
-    .upi-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 20px;
-    }
+  .payment-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(26, 107, 138, 0.1);
+  }
 
-    .upi-app {
-      padding: 12px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 12px;
-      text-align: center;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+  .upi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
 
-    .upi-app:hover {
-      border-color: var(--color-primary);
-      background: #f0f9ff;
-    }
+  .upi-app {
+    padding: 12px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+  }
 
-    .upi-app.active {
-      border-color: var(--color-primary);
-      background: #f0f9ff;
-    }
+  .upi-app:hover {
+    border-color: var(--color-primary);
+    background: #f0f9ff;
+  }
 
-    .upi-app span {
-      font-size: 11px;
-      font-weight: 600;
-      display: block;
-    }
+  .upi-app.active {
+    border-color: var(--color-primary);
+    background: #f0f9ff;
+  }
 
-    .payment-total {
-      background: #f8fafc;
-      padding: 16px;
-      border-radius: 16px;
-      margin-bottom: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-  </style>
+  .upi-app span {
+    font-size: 11px;
+    font-weight: 600;
+    display: block;
+  }
 
-  <h2 style="position:absolute;left:-9999px">MedhikaArts live appointment booking module with AI slot intelligence and real
-    form logic</h2>
+  .payment-total {
+    background: #f8fafc;
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-  <div id="root"></div>
-  <div id="payment-gateway-container"></div>
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  /* Client Suggestions */
+  .client-suggestion {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid var(--color-border-secondary);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    max-height: 250px;
+    overflow-y: auto;
+    margin-top: 4px;
+  }
+
+  .cs-item {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-bottom: 1px solid var(--color-border-tertiary);
+  }
+
+  .cs-item:last-child {
+    border-bottom: none;
+  }
+
+  .cs-item:hover {
+    background: var(--color-background-secondary);
+  }
+
+  .cs-name {
+    font-weight: 700;
+    color: var(--color-text-primary);
+    font-size: 14px;
+  }
+
+  .cs-sub {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+  }
+
+  .av {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .av-t {
+    background: #1a6b8a;
+  }
+
+  .av-b {
+    background: #1d9e75;
+  }
+
+  .av-p {
+    background: #f59e0b;
+  }
+
+  .av-c {
+    background: #e53e3e;
+  }
+
+  .av-k {
+    background: #8b5cf6;
+  }
+</style>
+
+<h2 style="position:absolute;left:-9999px">MedhikaArts live appointment booking module with AI slot intelligence and
+  real
+  form logic</h2>
+
+<div id="root"></div>
+<div id="payment-gateway-container"></div>
 
 <script>
-  const API_URL = 'http://localhost:5000/api';
+  const API_URL = (window.location.port === '5000')
+    ? '/api'
+    : `${window.location.protocol}//${window.location.hostname}:5000/api`;
   let CLIENTS = [];
   let BOOKINGS = [];
   let SERVICES = [];
   let STAFF = [];
   let FEMALE_SERVICES_IDS = [];
   let MALE_SERVICES_IDS = [];
-  
-  
-  
-
-  
-  
-
-  
-  
-  
-
 
   async function loadFromDB() {
     try {
@@ -751,7 +824,7 @@
       BOOKINGS = await bRes.json();
       STAFF = await sRes.json();
       SERVICES = await svRes.json();
-      
+
       FEMALE_SERVICES_IDS = SERVICES.filter(s => s.gender === 'female' || s.gender === 'unisex').map(s => s.id);
       MALE_SERVICES_IDS = SERVICES.filter(s => s.gender === 'male' || s.gender === 'unisex').map(s => s.id);
     } catch (err) {
@@ -782,7 +855,7 @@
   }
 
   const AI_BEST = '10:00';
-  const TIMES = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
+  const TIMES = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30'];
 
   let state = {
     step: 1,
@@ -790,7 +863,6 @@
     client: null,
     clientQuery: '',
     clientPhone: '',
-    serviceQuery: '',
     showSuggestions: false,
     selectedServices: [],
     selectedStaff: null,
@@ -802,7 +874,6 @@
     source: 'walk-in',
     aiInsight: '',
     aiLoading: false,
-    servicePriceSelections: {},
     confirmed: false,
     bookingId: null,
     errors: {},
@@ -812,22 +883,8 @@
     showPayment: false,
     paymentMethod: 'upi',
     paymentProcessing: false,
-    highlightedServiceId: null
+    serviceSearchQuery: ''
   };
-
-  // --- Sync Date from URL ---
-  const urlParams = new URLSearchParams(window.location.search);
-  const paramDate = urlParams.get('date');
-  if (paramDate) {
-    const d = new Date(paramDate);
-    if (!isNaN(d.getTime())) {
-      d.setHours(0,0,0,0);
-      state.selectedDate = d;
-      state.scheduleDate = d;
-      state.calYear = d.getFullYear();
-      state.calMonth = d.getMonth();
-    }
-  }
 
   const now = new Date();
   now.setHours(0, 0, 0, 0);
@@ -854,17 +911,14 @@
   });
 
   function totalPrice() {
-    return state.selectedServices.reduce((sum, id) => {
-      const s = SERVICES.find(x => String(x.id) === String(id));
-      if (!s) return sum;
-      const idx = state.servicePriceSelections[id] || 0;
-      const price = (s.prices && s.prices[idx] !== undefined) ? s.prices[idx] : s.price;
-      return sum + (price || 0);
+    return state.selectedServices.reduce((s, id) => {
+      const svc = SERVICES.find(x => x.id === id);
+      return s + (svc ? svc.price : 0);
     }, 0);
   }
   function totalDuration() {
     return state.selectedServices.reduce((s, id) => {
-      const svc = SERVICES.find(x => String(x.id) === String(id));
+      const svc = SERVICES.find(x => x.id === id);
       return s + (svc ? svc.duration : 0);
     }, 0);
   }
@@ -872,11 +926,11 @@
   function staffForServices() {
     const genderStaff = STAFF.filter(st => st.gender === state.selectedGender);
     let eligible = genderStaff;
-    
+
     if (state.selectedServices.length) {
       eligible = eligible.filter(st => state.selectedServices.every(sid => st.services.includes(sid)));
     }
-    
+
     // Prevent double-booking: exclude staff already booked at the selected date & time
     if (state.selectedDate && state.selectedTime) {
       const dateStr = toLocalISO(state.selectedDate);
@@ -888,48 +942,55 @@
         return !isBooked;
       });
     }
-    
+
     return eligible;
   }
 
-  function getWhatsAppUrl() {
+  function sendWhatsApp() {
     const client = state.client ? CLIENTS.find(c => c.id === state.client) : null;
     const name = client ? client.name : state.clientQuery;
     let phone = client ? client.phone : state.clientPhone || '';
 
-    if (!phone) return null;
+    if (!phone) {
+      alert("No phone number found for this client.");
+      return;
+    }
 
+    // Clean phone number: remove all non-digits
     let cleanPhone = String(phone).replace(/\D/g, '');
+
+    // Handle Indian numbers specifically
+    // If starts with 0, remove it (common in local entries)
     if (cleanPhone.startsWith('0')) cleanPhone = cleanPhone.substring(1);
-    if (cleanPhone.length === 10) cleanPhone = '91' + cleanPhone;
+
+    // If 10 digits, add 91 prefix
+    if (cleanPhone.length === 10) {
+      cleanPhone = '91' + cleanPhone;
+    }
+
+    // If it starts with 91 and has 12 digits, it's already correct
 
     const svcs = state.selectedServices.map(id => SERVICES.find(x => x.id === id)?.name || 'Unknown Service').join(', ');
     const dateStr = state.selectedDate ? fmtFull(state.selectedDate) : '';
     const timeStr = state.selectedTime ? format12h(state.selectedTime) : '';
     const total = rupee(totalPrice());
     const bookingId = state.bookingId || genId();
+
     const title = state.selectedGender === 'female' ? 'Miss' : 'Mr';
 
     const rawMessage = `*MedhikaArts Booking*\n--------------------------\n*Hello ${title}. ${name}*,\n\nYour booking for *${svcs}* is confirmed!\n\n📅 *Date:* ${dateStr}\n🕐 *Time:* ${timeStr}\n🆔 *Booking ID:* ${bookingId}\n\n_Thank you for choosing MedhikaArts!_`;
 
-    return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(rawMessage)}`;
-  }
+    const wpUrl = `https://wa.me/${cleanPhone}?text=${encodeURIComponent(rawMessage)}`;
 
-  function sendWhatsApp() {
-    const wpUrl = getWhatsAppUrl();
-    if (!wpUrl) {
-      alert("No phone number found for this client.");
-      return;
-    }
-
-    
+    // Try to open in new tab, fallback to current window if blocked
     try {
       const newWin = window.open(wpUrl, '_blank');
       if (!newWin || newWin.closed || typeof newWin.closed == 'undefined') {
-        window.open(wpUrl, '_top');
+        // Pop-up blocker likely active
+        window.location.href = wpUrl;
       }
     } catch (e) {
-      window.open(wpUrl, '_top');
+      window.location.href = wpUrl;
     }
   }
 
@@ -1002,26 +1063,21 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
         status: 'upcoming',
         notes: state.notes,
         source: state.source,
-        deposit: state.deposit
+        deposit: state.deposit,
+        createdAt: new Date().toISOString()
       };
       BOOKINGS.push(newBooking);
-      
-      let waWin = null;
-      if (state.notify.includes('whatsapp')) {
-        const wpUrl = getWhatsAppUrl();
-        if (wpUrl) {
-          waWin = window.open(wpUrl, '_blank');
-        }
-      }
 
       await saveToDB(isNewClient ? client : null, newBooking);
 
       state.confirmed = true;
       render();
       setTimeout(fireConfetti, 100);
-      
-      // If window.open was blocked, we don't force redirect here because we don't want to lose the confirmation page.
-      // The user can click the manual WhatsApp button.
+      const sound = document.getElementById('successSound');
+      if (sound) sound.play().catch(e => { });
+      if (state.notify.includes('whatsapp')) {
+        setTimeout(sendWhatsApp, 1500);
+      }
       // Signal dashboard to refresh
       if (window.parent) {
         window.parent.postMessage('refreshData', '*');
@@ -1085,38 +1141,22 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
       bookingId: null, errors: {},
       calYear: new Date().getFullYear(),
       calMonth: new Date().getMonth(),
-      scheduleDate: new Date(),
-      servicePriceSelections: {},
-      clientPhone: '',
-      serviceQuery: '',
-      selectedGender: 'female'
+      scheduleDate: new Date()
     };
     render();
   }
 
-  function toggleService(id, priceIdx = 0) {
-    const sId = String(id);
-    if (state.selectedServices.map(String).includes(sId)) {
-      state.selectedServices = state.selectedServices.filter(x => String(x) !== sId);
-      delete state.servicePriceSelections[sId];
+  function toggleService(id) {
+    if (state.selectedServices.includes(id)) {
+      state.selectedServices = state.selectedServices.filter(x => x !== id);
     } else {
-      state.selectedServices.push(sId);
-      state.servicePriceSelections[sId] = priceIdx;
+      state.selectedServices.push(id);
     }
     state.selectedStaff = null;
     state.aiInsight = '';
     if (state.selectedDate && state.selectedTime) fetchAIInsight();
     render();
   }
-
-  window._setSvcPrice = (id, idx) => {
-    state.servicePriceSelections[id] = parseInt(idx);
-    if (!state.selectedServices.map(String).includes(String(id))) {
-      state.selectedServices.push(String(id));
-    }
-    render();
-  };
-  window._toggleSvc = toggleService;
   function toggleNotify(n) {
     if (state.notify.includes(n)) state.notify = state.notify.filter(x => x !== n);
     else state.notify.push(n);
@@ -1127,6 +1167,7 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
     document.getElementById('root').innerHTML = buildHTML();
     document.getElementById('payment-gateway-container').innerHTML = buildPayment();
     attachEvents();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function buildSchedulePanel() {
@@ -1220,16 +1261,15 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
       ${state.step === 4 ? buildStep4() : ''}
       ${state.step === 5 ? buildStep5() : ''}
     </div>
-    <div style="display:flex;gap:12px;margin-top:16px">
-      ${state.step > 1 ? `<button class="btn-full btn-secondary" id="btnBack" style="width:auto;padding:0 30px">← Back</button>` : ''}
-      ${state.step < 5 ? `<button class="btn-full btn-primary" id="btnNext" style="flex:1">Continue to ${steps[state.step]} →</button>` : ''}
-      ${state.step === 5 ? `<button class="btn-full btn-primary" id="btnConfirm" style="flex:1">Confirm appointment</button>` : ''}
-    </div>
   </div>
   <div class="right">
     ${buildSummaryPanel()}
     ${buildAIPanel()}
-    ${buildSchedulePanel()}
+    <div style="display:flex; flex-direction:column; gap:12px; margin-top:8px">
+      ${state.step < 5 ? `<button class="btn-full btn-primary" id="btnNext" style="width:100%">Continue to ${steps[state.step]} →</button>` : ''}
+      ${state.step === 5 ? `<button class="btn-full btn-primary" id="btnConfirm" style="width:100%">Confirm appointment</button>` : ''}
+      ${state.step > 1 ? `<button class="btn-full btn-secondary" id="btnBack" style="width:100%; background:white; border:1px solid var(--color-border-primary)">← Back</button>` : ''}
+    </div>
   </div>
 </div>`;
   }
@@ -1237,7 +1277,7 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
 
   function buildStep1() {
     const q = state.clientQuery.toLowerCase();
-    const matches = q.length > 0 ? CLIENTS.filter(c => c.name.toLowerCase().includes(q) || (c.phone && c.phone.includes(q))).sort((a,b) => a.name.localeCompare(b.name)) : [];
+    const matches = q.length > 0 ? CLIENTS.filter(c => c.name.toLowerCase().includes(q) || (c.phone && c.phone.includes(q))).sort((a, b) => a.name.localeCompare(b.name)) : [];
     const selected = state.client ? CLIENTS.find(c => c.id === state.client) : null;
     return `<div class="card">
   <div class="card-title">Client details</div>
@@ -1273,7 +1313,7 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
   ${!selected && !q ? `<div style="font-size:12px;color:var(--color-text-secondary);margin-top:6px">Or quick-pick: ${CLIENTS.slice(0, 3).map(c => `<span data-cid="${c.id}" style="color:#1A6B8A;cursor:pointer;margin-right:8px">${c.name}</span>`).join('')}</div>` : ''}
   <div class="section-divider"></div>
   <div class="field-row">
-    <div class="field"><label>Booking source</label>
+    <div class="field" style="grid-column: span 2;"><label>Booking source</label>
     <select id="sourceSelect">
       <option value="walk-in" ${state.source === 'walk-in' ? 'selected' : ''}>Walk-in</option>
       <option value="phone" ${state.source === 'phone' ? 'selected' : ''}>Phone call</option>
@@ -1281,59 +1321,57 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
       <option value="online" ${state.source === 'online' ? 'selected' : ''}>Online</option>
       <option value="instagram" ${state.source === 'instagram' ? 'selected' : ''}>Instagram</option>
     </select></div>
-    <div class="field"><label>Branch location</label>
-    <select id="branchSelect">
-      <option>Banjara Hills, Hyderabad</option>
-      <option>Jubilee Hills, Hyderabad</option>
-      <option>Koramangala, Bangalore</option>
-      <option>Indiranagar, Bangalore</option>
-    </select></div>
   </div>
 </div>`;
   }
 
   function buildStep2() {
     let filteredServices = SERVICES.filter(s => s.gender === state.selectedGender || s.gender === 'unisex');
-    if (state.serviceQuery && state.serviceQuery.trim()) {
-        const q = state.serviceQuery.toLowerCase();
-        filteredServices = filteredServices.filter(s => s.name.toLowerCase().includes(q) || s.cat.toLowerCase().includes(q));
+
+    if (state.serviceSearchQuery) {
+      const query = state.serviceSearchQuery.toLowerCase();
+      filteredServices = filteredServices.filter(s =>
+        s.name.toLowerCase().includes(query) ||
+        s.cat.toLowerCase().includes(query)
+      );
     }
+
     const cats = [...new Set(filteredServices.map(s => s.cat))];
+
     return `<div class="card">
-  <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;">
-    <span>Select services for ${state.selectedGender === 'male' ? 'Men' : 'Women'}</span>
-    <input type="text" id="serviceSearchInput" value="${state.serviceQuery || ''}" placeholder="Search services..." style="padding:6px 12px; border:1px solid var(--color-border-secondary); border-radius:6px; font-size:13px; width:200px; font-weight:normal;">
+  <div class="card-title">Select services for ${state.selectedGender === 'male' ? 'Men' : 'Women'}</div>
+  
+  <div class="field" style="margin-bottom: 20px;">
+    <div style="position: relative;">
+      <i style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--color-text-tertiary);">🔍</i>
+      <input type="text" id="svc-search" placeholder="Search services (e.g. Haircut, Massage...)" 
+             value="${state.serviceSearchQuery}" 
+             style="padding-left: 38px; background: white; border: 1px solid var(--color-border-primary);">
+    </div>
   </div>
+
   ${state.errors.services ? `<div class="error" style="margin-bottom:10px">${state.errors.services}</div>` : ''}
+  
+  ${filteredServices.length === 0 ? '<div style="text-align:center;padding:40px;color:var(--color-text-secondary);">No services found matching your search.</div>' : ''}
+  
+  <div style="max-height: 500px; overflow-y: auto; padding-right: 10px; scrollbar-width: thin;">
   ${cats.map(cat => `
     <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:8px;margin-top:16px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">${cat}</div>
     <div class="svc-grid">${filteredServices.filter(s => s.cat === cat).map(s => {
-      const sel = state.selectedServices.map(String).includes(String(s.id));
-      const prices = s.prices || [s.price];
-      const selectedIdx = state.servicePriceSelections[s.id] || 0;
-      const currentPrice = prices[selectedIdx] || s.price;
-      
-      return `<div class="svc-card ${sel ? 'selected' : ''}" onclick="window._toggleSvc('${s.id}')">
+      const sel = state.selectedServices.includes(s.id);
+      return `<div class="svc-card ${sel ? 'selected' : ''}" data-sid="${s.id}">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
           <span style="font-size:20px">${s.icon}</span>
           ${sel ? '<span style="color:var(--color-primary);font-size:16px">✓</span>' : ''}
         </div>
-        <div class="svc-name ${sel ? 'selected-text' : ''}" style="font-weight:700;font-size:15px;color:var(--color-text-primary);margin-bottom:4px;letter-spacing:-0.01em;line-height:1.2;">${s.name}</div>
-        
-        ${prices.length > 1 ? `
-          <div style="margin:8px 0;" onclick="event.stopPropagation()">
-            <select class="price-select" style="width:100%;font-size:10px;padding:4px;border-radius:4px;border:1px solid var(--color-border);background:white;" onchange="window._setSvcPrice('${s.id}', this.value)">
-              ${prices.map((p, i) => `<option value="${i}" ${selectedIdx === i ? 'selected' : ''}>${s.variants && s.variants[i] ? s.variants[i] : 'Option ' + (i+1)}: ${rupee(p)}</option>`).join('')}
-            </select>
-          </div>
-        ` : ''}
-
+        <div class="svc-name ${sel ? 'selected-text' : ''}" style="font-weight:600;margin-bottom:4px">${s.name}</div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-top:auto">
           <span class="svc-meta" style="font-size:11px;color:var(--color-text-secondary)">${s.duration} min</span>
-          <span class="svc-price" style="font-weight:800;font-size:15px;color:var(--color-primary)">${rupee(currentPrice)}</span>
+          <span class="svc-price" style="font-weight:700;color:var(--color-primary)">${rupee(s.price)}</span>
         </div>
       </div>`;
     }).join('')}</div>`).join('')}
+  </div>
 </div>`;
   }
 
@@ -1343,7 +1381,6 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
     state.selectedServices = [];
     state.selectedStaff = null;
     render();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   function buildCalendar() {
@@ -1392,9 +1429,9 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
   function buildTimeSlots() {
     let dateStr = '';
     if (state.selectedDate) {
-       dateStr = toLocalISO(state.selectedDate);
+      dateStr = toLocalISO(state.selectedDate);
     }
-    
+
     // Count existing bookings per time slot for that date
     const slotCounts = {};
     if (dateStr) {
@@ -1423,7 +1460,7 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
         const best = t === AI_BEST && !busy && !isPastSlot;
         const sel = state.selectedTime === t;
         const disabled = busy || isPastSlot;
-        
+
         return `<div class="slot ${disabled ? 'disabled' : best ? 'ai-best' : ''} ${sel && !disabled ? 'selected' : ''}" 
                      style="${isPastSlot ? 'opacity: 0.4; cursor: not-allowed; border-color: #eee; background: #fafafa;' : ''} ${busy ? 'background: #fdf2f2; color: #9b2c2c; border-color: #feb2b2;' : ''}"
                      data-time="${t}">${format12h(t)}${best ? ' ★' : ''}</div>`;
@@ -1533,7 +1570,7 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
 
   function buildStep5() {
     const client = state.client ? CLIENTS.find(c => c.id === state.client) : null;
-    const svcs = state.selectedServices.map(id => SERVICES.find(x => x.id === id)).filter(x => x);
+    const svcs = state.selectedServices.map(id => SERVICES.find(x => x.id === id));
     const staff = state.selectedStaff ? STAFF.find(x => x.id === state.selectedStaff) : null;
     const total = totalPrice();
     const dur = totalDuration();
@@ -1569,9 +1606,9 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
     <div class="confirm-id">${state.bookingId}</div>
   </div>
   <div style="display:flex; flex-direction:column; gap:12px; margin-top:20px">
-    <a href="${getWhatsAppUrl() || '#'}" target="_blank" class="btn-full btn-primary" style="background:#25D366; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2); text-decoration: none; display: flex; justify-content: center; align-items: center; gap: 8px;">
-      <span style="font-size:20px">📱</span> Send WhatsApp Confirmation
-    </a>
+    <button class="btn-full btn-primary" style="background:#25D366; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);" onclick="window._sendWP()">
+      <span style="font-size:20px">📱</span> Manual Resend WhatsApp
+    </button>
   </div>
   <div class="card" style="margin-top:14px">
     <div class="card-title">What happens next</div>
@@ -1584,9 +1621,8 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
       <div style="display:flex;gap:8px;align-items:flex-start"><span style="color:#4DC0E8">◈</span><span>Draft invoice created — complete at checkout</span></div>
     </div>
   </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
     <button class="btn-full btn-secondary" onclick="window._reset(); if(window.parent && window.parent.closeBooking) window.parent.closeBooking();">+ New booking</button>
-    <button class="btn-full btn-primary" onclick="window._openHostedPayment()" style="background: #5469d4; box-shadow: 0 10px 20px rgba(84, 105, 212, 0.3);">Pay Securely (Redirect) ↗</button>
+    <button class="btn-full btn-primary" onclick="window._openCheckoutWindow()">Go to checkout ↗</button>
   </div>
 </div>`;
   }
@@ -1594,7 +1630,7 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
   function buildPayment() {
     if (!state.showPayment) return '';
     const total = totalPrice();
-    
+
     return `<div class="payment-modal" onclick="window._closePayment()">
       <div class="payment-card" onclick="event.stopPropagation()">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;">
@@ -1673,16 +1709,16 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
   }
 
   function buildSummaryPanel() {
-    const svcs = state.selectedServices.map(id => SERVICES.find(x => String(x.id) === String(id))).filter(x => x);
+    const svcs = state.selectedServices.map(id => SERVICES.find(x => x.id === id));
     const total = totalPrice();
     const dur = totalDuration();
     const client = state.client ? CLIENTS.find(c => c.id === state.client) : null;
-    
+
     let pastServicesHTML = '';
     if (client) {
       const pastBookings = BOOKINGS.filter(b => b.clientId === client.id && b.status !== 'cancelled')
         .sort((a, b) => new Date(b.date.split('T')[0]) - new Date(a.date.split('T')[0])).reverse();
-      
+
       if (pastBookings.length > 0) {
         const lastB = pastBookings[0];
         const lastDate = lastB.date.includes('T') ? lastB.date.split('T')[0] : lastB.date;
@@ -1690,7 +1726,7 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
           const s = SERVICES.find(x => x.id === sId);
           return s ? s.name : 'Unknown Service';
         }).join(', ');
-        
+
         const lastDateObj = new Date(lastDate);
         let dateStr = lastDateObj.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
         if (dateStr === 'Invalid Date') dateStr = lastDate; // fallback
@@ -1709,7 +1745,7 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
   <div class="card-title">Booking summary</div>
   ${client ? `<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)"><div class="av ${client.av}" style="width:28px;height:28px;font-size:10px">${client.name.split(' ').map(x => x[0]).join('')}</div><div><div style="font-size:13px;font-weight:500">${client.name}</div><div style="font-size:11px;color:var(--color-text-secondary)">${client.pts.toLocaleString()} pts · ${client.ltv} LTV</div></div></div>` : ''}
   ${pastServicesHTML}
-  ${svcs.length ? svcs.map(s => `<div style="display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span>${s?.name || 'Unknown'}<br><span style="color:var(--color-text-tertiary)">${s?.duration || 0} min</span></span><span style="font-weight:500">${rupee(s?.price || 0)}</span></div>`).join('') : `<div style="font-size:12px;color:var(--color-text-secondary)">No services selected yet</div>`}
+  ${svcs.length ? svcs.map(s => `<div style="display:flex;justify-content:space-between;font-size:12px;padding:4px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span>${s.name}<br><span style="color:var(--color-text-tertiary)">${s.duration} min</span></span><span style="font-weight:500">${rupee(s.price)}</span></div>`).join('') : `<div style="font-size:12px;color:var(--color-text-secondary)">No services selected yet</div>`}
   ${state.selectedDate ? `<div style="font-size:12px;margin-top:8px;color:var(--color-text-secondary)">Date: <span style="color:var(--color-text-primary);font-weight:500">${fmtFull(state.selectedDate)}</span></div>` : ''}
   ${state.selectedTime ? `<div style="font-size:12px;margin-top:4px;color:var(--color-text-secondary)">Time: <span style="color:var(--color-text-primary);font-weight:500">${format12h(state.selectedTime)}</span></div>` : ''}
   ${dur ? `<div style="font-size:12px;margin-top:4px;color:var(--color-text-secondary)">Duration: <span style="font-weight:500">${dur} min</span></div>` : ''}
@@ -1718,38 +1754,6 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
   }
 
   function buildAIPanel() {
-    if (state.highlightedServiceId) {
-      const svc = SERVICES.find(s => String(s.id) === String(state.highlightedServiceId));
-      if (svc) {
-        // Calculate Stats
-        const usages = BOOKINGS.filter(b => (b.services || []).includes(svc.id));
-        const clientCounts = {};
-        usages.forEach(u => {
-          clientCounts[u.clientName] = (clientCounts[u.clientName] || 0) + 1;
-        });
-        const sortedClients = Object.entries(clientCounts).sort((a,b) => b[1]-a[1]).slice(0, 3);
-        const totalClients = new Set(usages.map(u => u.clientId)).size;
-
-        return `<div class="ai-panel" style="border-color: var(--color-primary);">
-          <div class="ai-label"><span class="ai-dot"></span>Service Intelligence: ${svc.name}</div>
-          <div class="ai-text" style="margin-bottom:12px">
-            Used by <b>${usages.length}</b> clients total (<b>${totalClients}</b> unique).
-          </div>
-          ${sortedClients.length > 0 ? `
-            <div style="font-size:11px; color:var(--color-text-secondary); margin-bottom:6px; font-weight:700;">TOP RECURRING CLIENTS:</div>
-            <div style="display:flex; flex-direction:column; gap:4px;">
-              ${sortedClients.map(([name, count]) => `
-                <div style="display:flex; justify-content:space-between; font-size:11px; background:white; padding:4px 8px; border-radius:6px;">
-                  <span>${name}</span>
-                  <span style="font-weight:700; color:var(--color-primary)">${count}x</span>
-                </div>
-              `).join('')}
-            </div>
-          ` : '<div style="font-size:11px; opacity:0.7">No previous history found for this service.</div>'}
-        </div>`;
-      }
-    }
-
     if (!state.selectedServices.length) return `<div class="ai-panel"><div class="ai-label"><span class="ai-dot"></span>AI booking intelligence</div><div class="ai-text">Select services to get AI-powered insights, upsell suggestions, and slot recommendations.</div></div>`;
     if (state.aiLoading) return `<div class="ai-panel"><div class="ai-label"><span class="ai-dot"></span>AI analyzing...</div><div class="ai-loading">Checking slot demand, client history, upsell opportunities...</div></div>`;
     if (state.aiInsight) return `<div class="ai-panel"><div class="ai-label"><span class="ai-dot"></span>AI insight</div><div class="ai-text">${state.aiInsight}</div></div>`;
@@ -1765,13 +1769,13 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
         state.client = null;
         // Update suggestions without full re-render to avoid losing focus
         const q = state.clientQuery.toLowerCase();
-        const matches = q.length > 0 ? CLIENTS.filter(c => c.name.toLowerCase().includes(q) || (c.phone && c.phone.includes(q))).sort((a,b) => a.name.localeCompare(b.name)) : [];
+        const matches = q.length > 0 ? CLIENTS.filter(c => c.name.toLowerCase().includes(q) || (c.phone && c.phone.includes(q))).sort((a, b) => a.name.localeCompare(b.name)) : [];
         let sugBox = document.querySelector('.client-suggestion');
         if (matches.length > 0 && !state.client) {
           if (!sugBox) {
             sugBox = document.createElement('div');
             sugBox.className = 'client-suggestion';
-            cs.parentElement.after(sugBox);
+            cs.parentElement.appendChild(sugBox);
           }
           sugBox.innerHTML = matches.map(c => `
           <div class="cs-item" data-cid="${c.id}">
@@ -1782,6 +1786,20 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
           sugBox.querySelectorAll('[data-cid]').forEach(el => {
             el.addEventListener('click', () => { state.client = el.dataset.cid; state.clientQuery = ''; render(); });
           });
+        } else if (q.length > 0 && matches.length === 0 && !state.client) {
+          if (!sugBox) {
+            sugBox = document.createElement('div');
+            sugBox.className = 'client-suggestion';
+            cs.parentElement.appendChild(sugBox);
+          }
+          sugBox.innerHTML = `
+            <div class="cs-item" style="cursor:default; opacity:0.8;">
+              <div class="av" style="background:#cbd5e1;">?</div>
+              <div>
+                <div class="cs-name">No matching clients found</div>
+                <div class="cs-sub">A new profile will be created for "${state.clientQuery}"</div>
+              </div>
+            </div>`;
         } else if (sugBox) {
           sugBox.remove();
         }
@@ -1790,21 +1808,23 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
     const cpi = document.getElementById('clientPhoneInput');
     if (cpi) cpi.addEventListener('input', e => state.clientPhone = e.target.value);
 
-    const ssi = document.getElementById('serviceSearchInput');
-    if (ssi) {
-      ssi.addEventListener('input', e => {
-        state.serviceQuery = e.target.value;
-        render();
-        const newSsi = document.getElementById('serviceSearchInput');
-        if (newSsi) {
-            newSsi.focus();
-            newSsi.selectionStart = newSsi.selectionEnd = newSsi.value.length;
-        }
-      });
-    }
+    const ssi = document.getElementById('svc-search');
+    if (ssi) ssi.addEventListener('input', e => {
+      state.serviceSearchQuery = e.target.value;
+      render();
+      // Keep focus on search input after render
+      const newSsi = document.getElementById('svc-search');
+      if (newSsi) {
+        newSsi.focus();
+        newSsi.setSelectionRange(newSsi.value.length, newSsi.value.length);
+      }
+    });
 
     document.querySelectorAll('[data-cid]').forEach(el => {
       el.addEventListener('click', () => { state.client = el.dataset.cid; state.clientQuery = ''; state.clientPhone = ''; render(); });
+    });
+    document.querySelectorAll('[data-sid]').forEach(el => {
+      el.addEventListener('click', () => toggleService(el.dataset.sid));
     });
     document.querySelectorAll('[data-calday]').forEach(el => {
       el.addEventListener('click', () => {
@@ -1842,11 +1862,7 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
     document.querySelectorAll('.step[data-step]').forEach(el => {
       el.addEventListener('click', () => {
         const n = parseInt(el.dataset.step);
-        if (n < state.step) { 
-          state.step = n; 
-          render(); 
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        if (n < state.step) { state.step = n; render(); }
       });
     });
     const btnNext = document.getElementById('btnNext');
@@ -1854,131 +1870,56 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
       state.errors = {};
       if (state.step === 1) {
         if (!state.client && !state.clientQuery.trim()) { state.errors.client = 'Enter or select a client'; render(); return; }
-        if (!state.client && !(state.clientPhone || '').trim()) { state.errors.phone = 'Enter a phone number for WhatsApp'; render(); return; }
+        if (!state.client && !state.clientPhone.trim()) { state.errors.phone = 'Enter a phone number for WhatsApp'; render(); return; }
       }
       if (state.step === 2 && !state.selectedServices.length) { state.errors.services = 'Select at least one service'; render(); return; }
       if (state.step === 3) { if (!state.selectedDate) { state.errors.date = 'Pick a date'; render(); return; } if (!state.selectedTime) { state.errors.time = 'Pick a time'; render(); return; } }
       state.step++; render();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
       if (state.step === 4 && state.selectedDate && state.selectedTime) fetchAIInsight();
     });
     const btnBack = document.getElementById('btnBack');
-    if (btnBack) btnBack.addEventListener('click', () => { 
-      state.step--; 
-      render(); 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    if (btnBack) btnBack.addEventListener('click', () => { state.step--; render(); });
     const btnConfirm = document.getElementById('btnConfirm');
     if (btnConfirm) btnConfirm.addEventListener('click', confirm);
   }
 
   window._clearClient = () => { state.client = null; state.clientQuery = ''; state.clientPhone = ''; render(); };
-  window._hoverService = (id) => { state.highlightedServiceId = id; render(); };
   window._sendWP = sendWhatsApp;
   window._reset = reset;
-  
+
   window._openPayment = () => { state.showPayment = true; render(); };
-  
-  window._openHostedPayment = async () => {
+
+  window._openCheckoutWindow = () => {
     const total = totalPrice();
-    const btn = event.currentTarget;
-    const originalText = btn.innerHTML;
-    btn.innerHTML = 'Initiating Secure Payment...';
-    btn.disabled = true;
-
-    try {
-      // 1. Create Order on Backend
-      const response = await fetch(`${API_URL}/payment/create-session`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount: total,
-          bookingId: state.bookingId,
-          clientName: state.client ? CLIENTS.find(c => c.id === state.client)?.name : state.clientQuery
-        })
-      });
-
-      const orderData = await response.json();
-      
-      // --- Handle Mock Mode ---
-      if (orderData.isMock) {
-        console.warn("MOCK MODE: Skipping real Razorpay as keys are missing.");
-        setTimeout(async () => {
-          // Simulate the success handler
-          window.location.href = 'success.html';
-        }, 2000);
-        return;
+    if (window.parent) {
+      window.parent.postMessage({ type: 'openCheckout', amount: total }, '*');
+      if (typeof window.parent.closeBooking === 'function') {
+        window.parent.closeBooking();
       }
-
-      if (orderData.orderId) {
-        // 2. Open Razorpay Checkout Modal
-        const options = {
-          key: orderData.key,
-          amount: orderData.amount,
-          currency: orderData.currency,
-          name: "MedhikaArts Salon",
-          description: "Appointment Booking Payment",
-          order_id: orderData.orderId,
-          handler: async function (response) {
-            // 3. Verify Payment on Backend
-            const verifyRes = await fetch(`${API_URL}/payment/verify`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(response)
-            });
-
-            const verifyData = await verifyRes.json();
-            if (verifyData.status === 'success') {
-              window.location.href = 'success.html';
-            } else {
-              alert("Payment verification failed!");
-            }
-          },
-          prefill: {
-            name: state.client ? CLIENTS.find(c => c.id === state.client)?.name : state.clientQuery,
-            contact: state.client ? CLIENTS.find(c => c.id === state.client)?.phone : state.clientPhone
-          },
-          theme: { color: "#1A6B8A" }
-        };
-
-        const rzp = new Razorpay(options);
-        rzp.open();
-        
-        btn.innerHTML = originalText;
-        btn.disabled = false;
-      } else {
-        throw new Error("Failed to create order");
-      }
-    } catch (err) {
-      console.error("Payment Error:", err);
-      alert("Could not initiate real-time transaction. Please ensure server keys are valid.");
-      btn.innerHTML = originalText;
-      btn.disabled = false;
     }
   };
-
   window._closePayment = () => { state.showPayment = false; render(); };
   window._setPaymentMethod = (m) => { state.paymentMethod = m; render(); };
-  window._selectUPIApp = (app) => { 
+  window._selectUPIApp = (app) => {
     const input = document.getElementById('upiIdInput');
     if (input) input.value = `user@${app}`;
   };
   window._processPayment = async () => {
     state.paymentProcessing = true;
     render();
-    
+
     // Simulate payment processing
     await new Promise(r => setTimeout(r, 2000));
-    
+
     // On success
     state.paymentProcessing = false;
     state.showPayment = false;
-    
+
     // Update booking status in BOOKINGS array
     const b = BOOKINGS.find(x => x.id === state.bookingId);
     if (b) {
       b.status = 'confirmed'; // Or 'paid' if you prefer
-      
+
       // Update DB if possible
       try {
         await fetch(`${API_URL}/bookings/${b.id}`, {
@@ -1988,23 +1929,23 @@ Give ONE short, specific, actionable insight (2-3 sentences max) about this book
         });
       } catch (e) { console.error("DB update failed", e); }
     }
-    
+
     // Trigger confetti for payment success too
     fireConfetti();
-    
+
     setTimeout(() => {
       if (window.parent) {
         window.parent.postMessage('refreshData', '*');
         // Close modal after a short delay
         if (typeof window.parent.closeBooking === 'function') {
-           window.parent.closeBooking();
+          window.parent.closeBooking();
         } else {
-           // Fallback if closeBooking is not directly accessible
-           window.parent.postMessage('refreshData', '*');
+          // Fallback if closeBooking is not directly accessible
+          window.parent.postMessage('refreshData', '*');
         }
       }
     }, 1500);
-    
+
     render();
   };
 

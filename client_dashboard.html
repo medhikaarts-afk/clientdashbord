@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Srijes Client Dashboard</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Roboto:wght@400;500&family=Playfair+Display:wght@700&display=swap">
+    <style>
+        :root {
+            --color-primary: #1A6B8A;
+            --color-primary-dark: #14556d;
+            --color-bg-light: #ffffff;
+            --color-bg-soft: #f9fafb;
+            --color-text-main: #111827;
+            --color-text-muted: #6b7280;
+            --font-main: 'Outfit', sans-serif;
+            --sidebar-width: 280px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg-soft);
+            color: var(--color-text-main);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* --- Login Screen (Luxury Salon Redesign) --- */
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('salon_bg.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .login-logo {
+            font-size: 48px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .login-logo img {
+            height: 80px;
+            width: auto;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+            transition: transform 0.3s ease;
+        }
+
+        .login-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .login-logo svg circle, .login-logo svg path {
+            stroke: #ffffff;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 48px 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-card h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .login-subtitle {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .login-input-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.3s ease;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .login-input:focus {
+            border-color: #ffffff;
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
+        }
+
+        .login-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #19c37d 0%, #1a8a5f 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            letter-spacing: 0.02em;
+            box-shadow: 0 8px 20px rgba(25, 195, 125, 0.3);
+        }
+
+        .login-btn:hover {
+            background: linear-gradient(135deg, #1bd389 0%, #1c9b6b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(25, 195, 125, 0.4);
+        }
+
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+
+        .login-already {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+            margin-bottom: 4px;
+        }
+
+        .login-already a {
+            color: #19c37d;
+            font-weight: 700;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .login-already a:hover {
+            color: #1bd389;
+            text-decoration: underline;
+        }
+
+        .login-divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+        }
+
+        .login-divider::before,
+        .login-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .login-divider::before {
+            margin-right: 16px;
+        }
+
+        .login-divider::after {
+            margin-left: 16px;
+        }
+
+        .social-btn {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .social-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .social-btn span {
+            flex: 0 1 auto;
+        }
+
+        /* Custom scrollbar for a more premium feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        /* --- Dashboard Layout --- */
+        #dashboard-layout {
+            display: none;
+            grid-template-columns: 1fr;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            background: #fdfdfd;
+        }
+
+        #dashboard-layout.visible {
+            display: grid;
+        }
+
+        /* Dashboard Watermarks */
+        .dashboard-watermark {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.04;
+            pointer-events: none;
+            color: var(--color-primary);
+        }
+
+        .watermark-1 { top: 10%; left: 5%; transform: rotate(-15deg); }
+        .watermark-2 { bottom: 15%; right: 5%; transform: rotate(20deg); }
+        .watermark-3 { top: 40%; right: 15%; transform: rotate(10deg); }
+        .watermark-4 { bottom: 10%; left: 20%; transform: rotate(-5deg); }
+
+        .brand-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 180px;
+            font-weight: 900;
+            color: var(--color-primary);
+            opacity: 0.02;
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 0;
+            letter-spacing: -2px;
+            user-select: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            z-index: 100;
+        }
+
+        .header-logo {
+            font-size: 28px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--color-primary);
+            text-decoration: none;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: rgba(26, 107, 138, 0.08);
+            color: var(--color-primary);
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            padding: 12px 16px;
+            color: #ef4444;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 8px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #fef2f2;
+        }
+
+        /* Main Content */
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            height: 80px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 40px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 500;
+        }
+
+        .header-welcome {
+            position: absolute;
+            left: 40px;
+            display: flex;
+            flex-direction: column;
+            background: rgba(26, 107, 138, 0.05);
+            padding: 8px 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--color-primary);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .greeting {
+            font-size: 13px;
+            color: var(--color-primary);
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .current-date {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-main);
+            letter-spacing: -0.2px;
+        }
+
+        .search-bar {
+            background: #f3f4f6;
+            border-radius: 20px;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 300px;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: absolute;
+            right: 40px;
+        }
+
+        .notif-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #e5e7eb;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notif-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 8px;
+            height: 8px;
+            background: #ef4444;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+
+        .user-profile:hover {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        /* Profile Dropdown */
+        .profile-container {
+            position: relative;
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 180px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            margin-top: 12px;
+            padding: 8px;
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .profile-dropdown.visible {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 10px 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-text-main);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background: #f9fafb;
+            color: var(--color-primary);
+        }
+
+        .dropdown-item i {
+            font-size: 14px;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 6px 0;
+        }
+
+        .dropdown-item.logout {
+            color: #ef4444;
+        }
+
+        .dropdown-item.logout:hover {
+            background: #fef2f2;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--color-text-main);
+            font-size: 14px;
+        }
+
+        /* Profile Dropdown */
+        .profile-container {
+            position: relative;
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 180px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            margin-top: 12px;
+            padding: 8px;
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .profile-dropdown.visible {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 10px 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-text-main);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background: #f9fafb;
+            color: var(--color-primary);
+        }
+
+        .dropdown-item i {
+            font-size: 14px;
+        }
+
+        .dropdown-divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 6px 0;
+        }
+
+        .dropdown-item.logout {
+            color: #ef4444;
+        }
+
+        .dropdown-item.logout:hover {
+            background: #fef2f2;
+        }
+
+        /* Content Frame */
+        .content-area {
+            flex: 1;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            background: white;
+        }
+
+        #booking-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .view-section {
+            display: none;
+            padding: 40px;
+            height: 100%;
+            overflow-y: auto;
+            background: var(--color-bg-soft);
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        /* Stats Cards */
+        /* Staff Grid */
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .staff-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .staff-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .staff-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--color-primary);
+        }
+
+        .staff-info {
+            flex: 1;
+        }
+
+        .staff-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: #111827;
+            margin-bottom: 2px;
+        }
+
+        .staff-specialty {
+            font-size: 13px;
+            color: var(--color-text-muted);
+        }
+
+        .ai-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(135deg, #1A6B8A, #2196B8);
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(26, 107, 138, 0.2);
+        }
+
+        .staff-gender-tag {
+            font-size: 10px;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 8px;
+            font-weight: 500;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            color: var(--color-text-muted);
+            margin-bottom: 8px;
+        }
+
+        .stat-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-primary);
+        }
+
+        /* AI Assistant Button (Luxury Redesign) */
+        .ai-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #1A6B8A 0%, #2196B8 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 10px 25px rgba(26, 107, 138, 0.4);
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .ai-fab:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 30px rgba(26, 107, 138, 0.5);
+        }
+
+        .ai-fab::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: inherit;
+            opacity: 0.4;
+            z-index: -1;
+            animation: pulse-ring 2.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.5; }
+            80%, 100% { transform: scale(1.6); opacity: 0; }
+        }
+
+        /* Google Picker Redesign */
+        #google-picker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+        }
+
+        .picker-card {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: pickerIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pickerIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .picker-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #5f6368;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .picker-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+
+        .picker-subtitle {
+            color: #5f6368;
+            font-size: 15px;
+            margin-bottom: 32px;
+        }
+
+        .picker-subtitle span {
+            color: #1a73e8;
+        }
+
+        .account-item {
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            text-align: left;
+        }
+
+        .account-item:hover {
+            background: #f8f9fa;
+        }
+
+        .account-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .account-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .account-info {
+            flex: 1;
+        }
+
+        .account-info .name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #3c4043;
+        }
+
+        .account-info .email {
+            font-size: 12px;
+            color: #70757a;
+        }
+
+        .picker-footer {
+            font-size: 12px;
+            color: #70757a;
+            margin-top: 32px;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        /* Add Account UI */
+        .add-account-form {
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            text-align: left;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .google-input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .google-input:focus {
+            border-color: #1a73e8;
+            border-width: 2px;
+            padding: 12px 14px;
+        }
+
+        .google-next-btn {
+            background: #1a73e8;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-weight: 500;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            align-self: flex-end;
+            margin-top: 10px;
+        }
+
+        .google-next-btn:hover {
+            background: #1765cc;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
+        }
+
+        /* Loading States */
+        .loader {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+            position: absolute;
+            left: calc(50% - 10px);
+            top: calc(50% - 10px);
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading .loader {
+            display: block;
+        }
+
+        .loading .btn-text {
+            visibility: hidden;
+        }
+
+        /* Google Picker */
+        #google-picker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .picker-card {
+            background: white;
+            width: 450px;
+            border-radius: 8px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        .picker-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #3c4043;
+            font-size: 14px;
+        }
+
+        .picker-content {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .picker-title {
+            font-size: 24px;
+            color: #202124;
+            margin-bottom: 8px;
+        }
+
+        .picker-subtitle {
+            font-size: 16px;
+            color: #3c4043;
+            margin-bottom: 32px;
+        }
+
+        .picker-subtitle span {
+            color: #1a73e8;
+            font-weight: 500;
+        }
+
+        .account-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 40px;
+            gap: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: left;
+        }
+
+        .account-item:hover {
+            background: #f8f9fa;
+        }
+
+        .account-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .account-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .account-info .name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #3c4043;
+        }
+
+        .account-info .email {
+            font-size: 12px;
+            color: #70757a;
+        }
+
+        .picker-footer {
+            padding: 24px 40px;
+            font-size: 12px;
+            color: #70757a;
+            line-height: 1.6;
+            text-align: left;
+        }
+        /* Settings Layout */
+        .settings-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            background: white;
+            padding: 32px;
+            border-radius: 24px;
+            border: 1px solid #e5e7eb;
+            min-height: 600px;
+        }
+
+        .settings-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            border-right: 1px solid #f3f4f6;
+            padding-right: 20px;
+        }
+
+        .set-nav-item {
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7280;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s;
+        }
+
+        .set-nav-item i {
+            font-size: 18px;
+            width: 24px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .set-nav-item:hover {
+            background: #f9fafb;
+            color: #111827;
+        }
+
+        .set-nav-item.active {
+            background: rgba(26, 107, 138, 0.08);
+            color: var(--color-primary);
+        }
+
+        .settings-content {
+            padding: 0 20px;
+        }
+
+        .settings-tab {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .settings-tab.active {
+            display: block;
+        }
+
+        .settings-tab h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 24px;
+        }
+
+        .settings-form {
+            max-width: 500px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s;
+            background: #f9fafb;
+        }
+
+        .form-group input:focus {
+            border-color: var(--color-primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(26, 107, 138, 0.1);
+        }
+
+        .toggle-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .toggle-group:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-group span {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .settings-footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid #f3f4f6;
+            display: flex;
+            gap: 16px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Switch styles */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: var(--color-primary);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Login Screen (ChatGPT Style) -->
+    <div id="login-screen">
+        <div class="login-logo">
+            <img src="logo.jpg" alt="">
+            Srijes
+        </div>
+
+        <div class="login-card" id="signup-card">
+            <h1>Create your account</h1>
+            <p class="login-subtitle">Join Srijes to manage your salon bookings and personalized stylist services.
+            </p>
+            <div class="login-input-group">
+                <input type="text" class="login-input" placeholder="Full Name" id="reg-name" autocomplete="name">
+            </div>
+            <div class="login-input-group">
+                <input type="tel" class="login-input" placeholder="Phone Number" id="reg-phone" autocomplete="tel"
+                    maxlength="10">
+            </div>
+            <div class="login-input-group">
+                <input type="date" class="login-input" id="reg-dob" title="Date of Birth" style="color: rgba(255,255,255,0.7);">
+            </div>
+            <button class="login-btn" onclick="handleRegistration(this)">
+                <span class="btn-text">Sign Up</span>
+                <div class="loader"></div>
+            </button>
+            <p class="login-already">Already have an account? <a href="#" onclick="showLoginOnly()">Log in</a></p>
+            <div class="login-divider">OR</div>
+            <button class="social-btn" onclick="handleSocial('Google')">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+                <span>Continue with Google</span>
+            </button>
+        </div>
+
+        <div class="login-card" id="login-card" style="display: none;">
+            <h1>Welcome back</h1>
+            <p class="login-subtitle">Please enter your registered phone number to access your dashboard.</p>
+            <div class="login-input-group">
+                <input type="tel" class="login-input" placeholder="Phone Number" id="login-phone" autocomplete="tel"
+                    maxlength="10">
+            </div>
+            <button class="login-btn" onclick="handleLogin(this)">
+                <span class="btn-text">Log In</span>
+                <div class="loader"></div>
+            </button>
+            <p class="login-already">New to Srijes? <a href="#" onclick="showSignupOnly()">Create account</a></p>
+        </div>
+
+        <div class="login-card" id="success-card" style="display: none;">
+            <div style="font-size: 50px; color: #19c37d; margin-bottom: 20px;">✓</div>
+            <h1>Registration Successful!</h1>
+            <p class="login-subtitle">Your account has been created. For security, please log in now with your phone
+                number.</p>
+            <button class="login-btn" onclick="showLoginOnly()">
+                <span class="btn-text">Go to Login</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div id="dashboard-layout">
+        <!-- Background Elements -->
+        <div class="brand-watermark">Srijes</div>
+        
+        <div class="dashboard-watermark watermark-1">
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"/></svg>
+        </div>
+        <div class="dashboard-watermark watermark-2">
+            <svg width="140" height="140" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 16.5V23c0-3.31-2.69-6-6-6h-2c-3.31 0-6 2.69-6 6v-6.5C5 12.36 8.13 9 12 9s7 3.36 7 7.5zM12 9V3c0-1.1.9-2 2-2s2 .9 2 2M12 9H8c-1.1 0-2-.9-2-2s.9-2 2-2"/></svg>
+        </div>
+        <div class="dashboard-watermark watermark-3">
+            <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12h20M2 6h20M2 18h20M7 6v12M12 6v12M17 6v12"/></svg>
+        </div>
+        <div class="dashboard-watermark watermark-4">
+            <svg width="110" height="110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 2c0 2.21 1.79 4 4 4s4-1.79 4-4V2M14 6v14M14 20a2 2 0 1 1-4 0M10 6v14a2 2 0 1 0 4 0M14 6h-4"/></svg>
+        </div>
+
+        <main class="main-container" style="position: relative; z-index: 1; background: transparent;">
+            <header>
+                <div class="header-welcome">
+                    <div class="greeting" id="dashboard-greeting">Good Afternoon,</div>
+                    <div class="current-date" id="dashboard-date">May 12, 2026</div>
+                </div>
+                <a href="#" class="header-logo">
+                    <img src="logo.jpg" alt="">
+                    Srijes
+                </a>
+                <div class="header-actions">
+                    <div class="notif-btn">
+                        <i>🔔</i>
+                        <div class="notif-badge"></div>
+                    </div>
+                    <div class="profile-container">
+                        <div class="user-profile" onclick="toggleProfileDropdown(event)">
+                            <div class="user-avatar" id="user-avatar" style="overflow: hidden; padding: 0;">
+                                <img src="logo.jpg" alt="User" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <span id="user-name" style="font-weight: 600; font-size: 14px;">Admin</span>
+                            <i style="font-size: 10px; color: #9ca3af; margin-left: 4px;">▼</i>
+                        </div>
+                        <div class="profile-dropdown" id="profile-dropdown">
+                            <div class="dropdown-item"
+                                onclick="switchView('staff', document.querySelector('.dropdown-item'))">
+                                <i>👥</i> Staff Members
+                            </div>
+                            <div class="dropdown-item"
+                                onclick="switchView('settings', document.querySelector('.dropdown-item'))">
+                                <i>⚙️</i> Settings
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item logout" onclick="handleLogout()">
+                                <i>🚪</i> Logout
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div id="bookings-view" style="height: 100%; display: block;">
+                    <iframe src="MedhikaArts_booking_module.html" id="booking-frame"></iframe>
+                </div>
+
+                <div id="overview-view" class="view-section">
+                    <h2 style="margin-bottom: 24px;">Dashboard Overview</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Bookings</h3>
+                            <div class="value" id="stat-bookings">124</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Active Clients</h3>
+                            <div class="value" id="stat-clients">86</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Today's Revenue</h3>
+                            <div class="value" id="stat-revenue">₹12,450</div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-bottom: 20px; font-size: 18px;">AI Recommended Staff for Today</h3>
+                    <div class="staff-grid" style="margin-bottom: 40px;">
+                        <div class="staff-card">
+                            <div class="ai-badge">AI Recommended</div>
+                            <div class="staff-img" style="background: #e0f2fe;">AM</div>
+                            <div class="staff-info">
+                                <div class="staff-name">Aarav Malhotra <span class="staff-gender-tag">Male</span></div>
+                                <div class="staff-specialty">Master Hair Stylist & Sculpting</div>
+                            </div>
+                        </div>
+                        <div class="staff-card">
+                            <div class="ai-badge">AI Recommended</div>
+                            <div class="staff-img" style="background: #fdf2f8;">IV</div>
+                            <div class="staff-info">
+                                <div class="staff-name">Ishani Verma <span class="staff-gender-tag">Female</span></div>
+                                <div class="staff-specialty">Advanced Skin Therapist</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p>Welcome back, Admin. Here is what's happening at Srijes today.</p>
+                </div>
+
+                <div id="staff-view" class="view-section">
+                    <h2 style="margin-bottom: 24px;">Staff Members</h2>
+                    <div class="staff-grid">
+                        <div class="staff-card">
+                            <div class="ai-badge">AI Recommended</div>
+                            <div class="staff-img" style="background: #e0f2fe;">AM</div>
+                            <div class="staff-info">
+                                <div class="staff-name">Aarav Malhotra <span class="staff-gender-tag">Male</span></div>
+                                <div class="staff-specialty">Master Hair Stylist & Sculpting</div>
+                            </div>
+                        </div>
+                        <div class="staff-card">
+                            <div class="ai-badge">AI Recommended</div>
+                            <div class="staff-img" style="background: #fdf2f8;">IV</div>
+                            <div class="staff-info">
+                                <div class="staff-name">Ishani Verma <span class="staff-gender-tag">Female</span></div>
+                                <div class="staff-specialty">Advanced Skin Therapist</div>
+                            </div>
+                        </div>
+                        <div class="staff-card">
+                            <div class="staff-img" style="background: #f0fdf4;">KM</div>
+                            <div class="staff-info">
+                                <div class="staff-name">Karan Mehra <span class="staff-gender-tag">Male</span></div>
+                                <div class="staff-specialty">Luxury Grooming & Beard Design</div>
+                            </div>
+                        </div>
+                        <div class="staff-card">
+                            <div class="ai-badge">AI Recommended</div>
+                            <div class="staff-img" style="background: #fdf2f8;">SK</div>
+                            <div class="staff-info">
+                                <div class="staff-name">Sanya Kapoor <span class="staff-gender-tag">Female</span></div>
+                                <div class="staff-specialty">Professional Bridal Makeup Artist</div>
+                            </div>
+                        </div>
+                        <div class="staff-card">
+                            <div class="staff-img" style="background: #fefce8;">RD</div>
+                            <div class="staff-info">
+                                <div class="staff-name">Rohan Das <span class="staff-gender-tag">Male</span></div>
+                                <div class="staff-specialty">Therapeutic Massage & Wellness</div>
+                            </div>
+                        </div>
+                        <div class="staff-card">
+                            <div class="staff-img" style="background: #fdf2f8;">MS</div>
+                            <div class="staff-info">
+                                <div class="staff-name">Meera Das <span class="staff-gender-tag">Female</span></div>
+                                <div class="staff-specialty">Creative Nail Art & Manicure</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="services-view" class="view-section">
+                    <h2 style="margin-bottom: 24px;">Services</h2>
+                    <p>Configure your salon services and pricing here.</p>
+                </div>
+
+                <div id="analytics-view" class="view-section">
+                    <h2 style="margin-bottom: 24px;">Analytics & Reports</h2>
+                    <div style="background: white; padding: 24px; border-radius: 16px; border: 1px solid #e5e7eb;">
+                        <h3 style="margin-bottom: 16px; font-size: 18px;">Staff Performance Report</h3>
+                        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #f3f4f6;">
+                                    <th style="padding: 12px; font-size: 14px; color: var(--color-text-muted);">Staff Name</th>
+                                    <th style="padding: 12px; font-size: 14px; color: var(--color-text-muted);">Bookings</th>
+                                    <th style="padding: 12px; font-size: 14px; color: var(--color-text-muted);">Revenue</th>
+                                    <th style="padding: 12px; font-size: 14px; color: var(--color-text-muted);">Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staff-report-body">
+                                <tr style="border-bottom: 1px solid #f3f4f6;">
+                                    <td style="padding: 12px; font-weight: 500;">Aarav Malhotra</td>
+                                    <td style="padding: 12px;">42</td>
+                                    <td style="padding: 12px;">₹45,200</td>
+                                    <td style="padding: 12px; color: #f59e0b;">★★★★★ 4.9</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f3f4f6;">
+                                    <td style="padding: 12px; font-weight: 500;">Ishani Verma</td>
+                                    <td style="padding: 12px;">38</td>
+                                    <td style="padding: 12px;">₹32,800</td>
+                                    <td style="padding: 12px; color: #f59e0b;">★★★★☆ 4.8</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f3f4f6;">
+                                    <td style="padding: 12px; font-weight: 500;">Karan Mehra</td>
+                                    <td style="padding: 12px;">29</td>
+                                    <td style="padding: 12px;">₹28,500</td>
+                                    <td style="padding: 12px; color: #f59e0b;">★★★★☆ 4.7</td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #f3f4f6;">
+                                    <td style="padding: 12px; font-weight: 500;">Sanya Kapoor</td>
+                                    <td style="padding: 12px;">35</td>
+                                    <td style="padding: 12px;">₹52,100</td>
+                                    <td style="padding: 12px; color: #f59e0b;">★★★★★ 4.9</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="settings-view" class="view-section">
+                    <h2 style="margin-bottom: 24px;">Settings</h2>
+                    
+                    <div class="settings-layout">
+                        <!-- Settings Sidebar Tabs -->
+                        <div class="settings-nav">
+                            <div class="set-nav-item active" onclick="switchSettingsTab('profile', this)"><i>👤</i> Profile & Info</div>
+                            <div class="set-nav-item" onclick="switchSettingsTab('booking', this)"><i>📅</i> Booking Prefs</div>
+                            <div class="set-nav-item" onclick="switchSettingsTab('notifications', this)"><i>🔔</i> Notifications</div>
+                            <div class="set-nav-item" onclick="switchSettingsTab('billing', this)"><i>💳</i> Payment & Billing</div>
+                            <div class="set-nav-item" onclick="switchSettingsTab('loyalty', this)"><i>💎</i> Loyalty & Rewards</div>
+                            <div class="set-nav-item" onclick="switchSettingsTab('security', this)"><i>🔒</i> Privacy & Security</div>
+                            <div class="set-nav-item" onclick="switchSettingsTab('history', this)"><i>📜</i> History & Favs</div>
+                            <div class="set-nav-item" onclick="switchSettingsTab('accessibility', this)"><i>♿</i> Accessibility</div>
+                        </div>
+
+                        <!-- Settings Content -->
+                        <div class="settings-content">
+                            <!-- Profile & Personal Info -->
+                            <div id="set-tab-profile" class="settings-tab active">
+                                <h3>Profile & Personal Info</h3>
+                                <div class="settings-form">
+                                    <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 24px;">
+                                        <div class="user-avatar" style="width: 80px; height: 80px; font-size: 24px;">A</div>
+                                        <button class="login-btn" style="width: auto; padding: 0 20px; height: 40px; background: #f3f4f6; color: #374151; font-size: 13px; border: 1px solid #e5e7eb;">Change Photo</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Full Name</label>
+                                        <input type="text" id="set-name" placeholder="Full Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email Address</label>
+                                        <input type="email" id="set-email" placeholder="Email Address">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phone Number</label>
+                                        <input type="tel" id="set-phone" placeholder="Phone Number">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Birthday</label>
+                                        <input type="date" id="set-dob">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Preferred Language</label>
+                                        <select id="set-lang">
+                                            <option value="en">English</option>
+                                            <option value="hi">Hindi</option>
+                                            <option value="te">Telugu</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Booking Preferences -->
+                            <div id="set-tab-booking" class="settings-tab">
+                                <h3>Booking Preferences</h3>
+                                <div class="settings-form">
+                                    <div class="form-group">
+                                        <label>Favorite Services</label>
+                                        <input type="text" id="set-fav-svcs" placeholder="e.g. Haircut, Facial">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Preferred Stylist</label>
+                                        <select id="set-fav-stylist">
+                                            <option value="any">Any Available</option>
+                                            <option value="aarav">Aarav Malhotra</option>
+                                            <option value="ishani">Ishani Verma</option>
+                                            <option value="karan">Karan Mehra</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Preferred Appointment Day</label>
+                                        <select id="set-fav-day">
+                                            <option value="weekend">Weekends</option>
+                                            <option value="weekday">Weekdays</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Reminder Timing</label>
+                                        <select id="set-reminder-time">
+                                            <option value="1">1 Hour before</option>
+                                            <option value="3">3 Hours before</option>
+                                            <option value="24" selected>1 Day before</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Notifications & Alerts -->
+                            <div id="set-tab-notifications" class="settings-tab">
+                                <h3>Notifications & Alerts</h3>
+                                <div class="toggle-group"><span>Appointment reminders</span><label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                                <div class="toggle-group"><span>Promotional offers & deals</span><label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                                <div class="toggle-group"><span>New service announcements</span><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div>
+                                <div class="toggle-group"><span>Loyalty points updates</span><label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                                <div class="toggle-group"><span>Waitlist notifications</span><label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                            </div>
+
+                            <!-- Payment & Billing -->
+                            <div id="set-tab-billing" class="settings-tab">
+                                <h3>Payment & Billing</h3>
+                                <div class="settings-form">
+                                    <div style="background: #f9fafb; padding: 20px; border-radius: 16px; margin-bottom: 24px; border: 1px dashed #d1d5db; text-align: center;">
+                                        <div style="font-size: 24px; margin-bottom: 8px;">💳</div>
+                                        <div style="font-size: 14px; font-weight: 600;">No saved cards</div>
+                                        <button class="login-btn" style="width: auto; padding: 0 16px; height: 36px; margin-top: 12px; font-size: 12px;">Add Card</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Preferred Payment Type</label>
+                                        <select>
+                                            <option value="upi">UPI / Wallet</option>
+                                            <option value="card">Credit / Debit Card</option>
+                                            <option value="cash">Cash at Salon</option>
+                                        </select>
+                                    </div>
+                                    <div class="toggle-group"><span>Auto-pay for deposits</span><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div>
+                                    <div class="toggle-group"><span>Send invoice to email</span><label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                                </div>
+                            </div>
+
+                            <!-- Loyalty & Rewards -->
+                            <div id="set-tab-loyalty" class="settings-tab">
+                                <h3>Loyalty & Rewards</h3>
+                                <div style="background: linear-gradient(135deg, #1A6B8A, #258FB8); padding: 24px; border-radius: 20px; color: white; margin-bottom: 24px;">
+                                    <div style="font-size: 13px; opacity: 0.9; margin-bottom: 4px;">Current Balance</div>
+                                    <div style="font-size: 32px; font-weight: 800; margin-bottom: 12px;">1,240 <span style="font-size: 14px; font-weight: 500;">Points</span></div>
+                                    <div style="background: rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 12px; font-size: 12px; display: inline-block;">Gold Membership Tier</div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Your Referral Code</label>
+                                    <div style="display: flex; gap: 10px;">
+                                        <input type="text" value="SRIJES-GOLD-2026" readonly style="background: #f3f4f6;">
+                                        <button class="login-btn" style="width: auto; padding: 0 16px;">Copy</button>
+                                    </div>
+                                </div>
+                                <button class="login-btn" style="background: #f3f4f6; color: #374151; border: 1px solid #e5e7eb;">View Reward History</button>
+                            </div>
+
+                            <!-- Privacy & Security -->
+                            <div id="set-tab-security" class="settings-tab">
+                                <h3>Privacy & Security</h3>
+                                <div class="settings-form">
+                                    <button class="login-btn" style="background: #f3f4f6; color: #374151; border: 1px solid #e5e7eb; margin-bottom: 16px;">Change Password</button>
+                                    <div class="toggle-group"><span>Two-factor authentication</span><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div>
+                                    <div class="toggle-group"><span>Share booking history with stylist</span><label class="switch"><input type="checkbox" checked><span class="slider round"></span></label></div>
+                                    <div style="margin-top: 32px; padding: 20px; border: 1px solid #fee2e2; background: #fffafb; border-radius: 16px;">
+                                        <div style="color: #991b1b; font-size: 14px; font-weight: 700; margin-bottom: 4px;">Danger Zone</div>
+                                        <div style="color: #b91c1c; font-size: 12px; margin-bottom: 12px;">Once you delete your account, there is no going back.</div>
+                                        <button style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer;">Delete Account</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- History & Favorites -->
+                            <div id="set-tab-history" class="settings-tab">
+                                <h3>History & Favorites</h3>
+                                <p style="font-size: 14px; color: #6b7280; margin-bottom: 20px;">Easily re-book your most loved services.</p>
+                                <div style="display: grid; gap: 12px;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: #f9fafb; border-radius: 16px; border: 1px solid #f3f4f6;">
+                                        <div>
+                                            <div style="font-weight: 700; font-size: 14px;">Signature Haircut</div>
+                                            <div style="font-size: 12px; color: #6b7280;">with Aarav M. · 12 Apr 2026</div>
+                                        </div>
+                                        <button class="login-btn" style="width: auto; padding: 0 16px; height: 32px; font-size: 12px;">Re-book</button>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px; background: #f9fafb; border-radius: 16px; border: 1px solid #f3f4f6;">
+                                        <div>
+                                            <div style="font-weight: 700; font-size: 14px;">HydraFacial Pro</div>
+                                            <div style="font-size: 12px; color: #6b7280;">with Ishani V. · 28 Mar 2026</div>
+                                        </div>
+                                        <button class="login-btn" style="width: auto; padding: 0 16px; height: 32px; font-size: 12px;">Re-book</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Accessibility -->
+                            <div id="set-tab-accessibility" class="settings-tab">
+                                <h3>Accessibility</h3>
+                                <div class="settings-form">
+                                    <div class="form-group">
+                                        <label>Font Size Preference</label>
+                                        <select>
+                                            <option value="small">Small</option>
+                                            <option value="medium" selected>Medium (Default)</option>
+                                            <option value="large">Large</option>
+                                        </select>
+                                    </div>
+                                    <div class="toggle-group"><span>Dark Mode</span><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div>
+                                    <div class="toggle-group"><span>Screen reader support</span><label class="switch"><input type="checkbox"><span class="slider round"></span></label></div>
+                                </div>
+                            </div>
+
+                            <div class="settings-footer">
+                                <button class="login-btn" style="width: auto; padding: 0 32px;" onclick="saveAllSettings(this)">
+                                    <span class="btn-text">Save Changes</span>
+                                    <div class="loader"></div>
+                                </button>
+                                <button class="login-btn" style="width: auto; padding: 0 32px; background: #f3f4f6; color: #374151; border: 1px solid #e5e7eb;" onclick="switchView('overview')">
+                                    <span class="btn-text">Cancel</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- AI FAB -->
+    <div class="ai-fab" title="Ask AI Assistant">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </div>
+
+    <!-- Google Picker Modal -->
+    <div id="google-picker" onclick="closeSocialPicker(event)">
+        <div class="picker-card" onclick="event.stopPropagation()">
+            <div class="picker-header">
+                <img src="https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png" width="20" height="20">
+                Sign in with Google
+            </div>
+            <div class="picker-content">
+                <h2 class="picker-title">Choose an account</h2>
+                <p class="picker-subtitle">to continue to <span>srijes.com</span></p>
+
+                <div class="account-item" onclick="selectGoogleAccount('Matt Wilson', 'mattmoneywilson@gmail.com')">
+                    <div class="account-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Matt+Wilson&background=0D8ABC&color=fff"
+                            alt="Matt Wilson">
+                    </div>
+                    <div class="account-info">
+                        <div class="name">Matt Wilson</div>
+                        <div class="email">mattmoneywilson@gmail.com</div>
+                    </div>
+                </div>
+
+                <div class="account-item" style="border-top: 1px solid #e5e7eb; padding-top: 16px;" onclick="showAddAccount()">
+                    <div class="account-avatar"
+                        style="background: #f1f3f4; display: flex; align-items: center; justify-content: center;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="#5f6368">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08c-1.29 1.94-3.5 3.22-6 3.22z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="account-info">
+                        <div class="name" style="color: #3c4043;">Use another account</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Account Form -->
+            <div id="add-account-view" class="add-account-form">
+                <div style="text-align: left; margin-bottom: 20px;">
+                    <div style="font-size: 24px; color: #202124; margin-bottom: 8px;">Sign in</div>
+                    <div style="font-size: 14px; color: #202124;">Use your Google Account</div>
+                </div>
+                <input type="text" id="new-account-name" class="google-input" placeholder="Name">
+                <input type="email" id="new-account-email" class="google-input" placeholder="Email or phone">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+                    <a href="#" onclick="hideAddAccount()" style="color: #1a73e8; text-decoration: none; font-size: 14px; font-weight: 500;">Back</a>
+                    <button class="google-next-btn" onclick="addNewAccount()">Next</button>
+                </div>
+            </div>
+
+            <div class="picker-footer">
+                To continue, Google will share your name, email address, language preference, and profile picture with
+                srijes.com.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showGooglePicker() {
+            document.getElementById('google-picker').style.display = 'flex';
+        }
+
+        function selectGoogleAccount(name, email) {
+            document.getElementById('google-picker').style.display = 'none';
+            // Show loading on the button
+            const googleBtn = document.querySelector('button[onclick="showGooglePicker()"]');
+            googleBtn.classList.add('loading');
+
+            setTimeout(() => {
+                localStorage.setItem('srijes_auth', 'true');
+                localStorage.setItem('srijes_user_email', email);
+                localStorage.setItem('srijes_user_name', name);
+
+                updateProfileUI();
+
+                const loginScreen = document.getElementById('login-screen');
+                const dashboard = document.getElementById('dashboard-layout');
+
+                loginScreen.style.opacity = '0';
+                loginScreen.style.transform = 'scale(0.98)';
+
+                setTimeout(() => {
+                    loginScreen.style.display = 'none';
+                    dashboard.classList.add('visible');
+                    googleBtn.classList.remove('loading');
+                }, 500);
+            }, 800);
+        }
+
+        // Persistence
+        window.addEventListener('load', () => {
+            const auth = localStorage.getItem('srijes_auth');
+            if (auth === 'true') {
+                updateProfileUI();
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('dashboard-layout').classList.add('visible');
+            } else {
+                document.getElementById('login-screen').style.display = 'flex';
+                showSignupOnly();
+            }
+        });
+
+        function showLoginOnly() {
+            document.getElementById('signup-card').style.display = 'none';
+            document.getElementById('success-card').style.display = 'none';
+            document.getElementById('login-card').style.display = 'block';
+        }
+
+        function showSignupOnly() {
+            document.getElementById('login-card').style.display = 'none';
+            document.getElementById('success-card').style.display = 'none';
+            document.getElementById('signup-card').style.display = 'block';
+        }
+
+        function handleRegistration(btn) {
+            const name = document.getElementById('reg-name').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const dob = document.getElementById('reg-dob').value;
+            const phoneRegex = /^[6-9]\d{9}$/;
+
+            if (!name || !phone || !phoneRegex.test(phone) || !dob) {
+                alert('Please enter a valid Name, 10-digit Phone Number, and Date of Birth');
+                return;
+            }
+
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Mock registration: Store temporarily
+                localStorage.setItem('temp_reg_name', name);
+                localStorage.setItem('temp_reg_phone', phone);
+
+                btn.classList.remove('loading');
+                btn.disabled = false;
+
+                document.getElementById('signup-card').style.display = 'none';
+                document.getElementById('success-card').style.display = 'block';
+            }, 400);
+        }
+
+        function handleLogin(btn) {
+            const phone = document.getElementById('login-phone').value.trim();
+            const tempPhone = localStorage.getItem('temp_reg_phone');
+            const tempName = localStorage.getItem('temp_reg_name');
+
+            if (!phone) {
+                alert('Please enter your phone number');
+                return;
+            }
+
+            // In a real app, we would check the DB. Here we check the temp session or a default
+            if (phone !== tempPhone && phone !== '9876543210') {
+                alert('Account not found. Please register first.');
+                return;
+            }
+
+            const name = phone === tempPhone ? tempName : 'Srijes User';
+
+            btn.classList.add('loading');
+            btn.disabled = true;
+
+            setTimeout(() => {
+                finishLogin(name, phone, btn);
+            }, 400);
+        }
+
+        function handleSocial(provider) {
+            if (provider === 'Google') {
+                document.getElementById('google-picker').style.display = 'flex';
+            } else {
+                alert(`Social login with ${provider} initiated. For this demo, please use the Registration form or Google.`);
+            }
+        }
+
+        function closeSocialPicker(event) {
+            document.getElementById('google-picker').style.display = 'none';
+        }
+
+        function selectGoogleAccount(name, email) {
+            const picker = document.getElementById('google-picker');
+            picker.style.opacity = '0';
+            setTimeout(() => {
+                picker.style.display = 'none';
+                picker.style.opacity = '1';
+                finishLogin(name, email);
+            }, 300);
+        }
+
+        function showAddAccount() {
+            document.querySelector('.picker-content').style.display = 'none';
+            document.getElementById('add-account-view').style.display = 'flex';
+        }
+
+        function hideAddAccount() {
+            document.querySelector('.picker-content').style.display = 'block';
+            document.getElementById('add-account-view').style.display = 'none';
+        }
+
+        function addNewAccount() {
+            const name = document.getElementById('new-account-name').value.trim();
+            const email = document.getElementById('new-account-email').value.trim();
+            
+            if (!name || !email) {
+                alert('Please enter both name and email');
+                return;
+            }
+            
+            selectGoogleAccount(name, email);
+        }
+
+        function finishLogin(name, identifier, btn) {
+            localStorage.setItem('srijes_auth', 'true');
+            localStorage.setItem('srijes_user_id', identifier);
+            localStorage.setItem('srijes_user_name', name);
+            localStorage.setItem('srijes_user_phone', identifier);
+
+            updateProfileUI();
+
+            const loginScreen = document.getElementById('login-screen');
+            const dashboard = document.getElementById('dashboard-layout');
+
+            loginScreen.style.opacity = '0';
+            loginScreen.style.transform = 'scale(0.98)';
+
+            setTimeout(() => {
+                loginScreen.style.display = 'none';
+                dashboard.classList.add('visible');
+                if (btn) { btn.classList.remove('loading'); btn.disabled = false; }
+            }, 300);
+        }
+
+        function updateProfileUI() {
+            const name = localStorage.getItem('srijes_user_name') || 'Admin';
+            const id = localStorage.getItem('srijes_user_id') || 'Admin';
+
+            const avatar = document.getElementById('user-avatar');
+            const nameEl = document.getElementById('user-name');
+
+            if (avatar && nameEl) {
+                nameEl.textContent = name;
+                avatar.textContent = name.includes('Client') ? 'C' : name.substring(0, 2).toUpperCase();
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('srijes_auth');
+            localStorage.removeItem('srijes_user_id');
+            localStorage.removeItem('srijes_user_name');
+            location.reload();
+        }
+
+        function toggleProfileDropdown(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('profile-dropdown');
+            dropdown.classList.toggle('visible');
+        }
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', () => {
+            const dropdown = document.getElementById('profile-dropdown');
+            if (dropdown && dropdown.classList.contains('visible')) {
+                dropdown.classList.remove('visible');
+            }
+        });
+
+        function switchView(viewId, el) {
+            // Update Navigation
+            if (el && el.classList) {
+                document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                el.classList.add('active');
+            }
+
+            // Update View
+            const views = ['bookings', 'overview', 'clients', 'services', 'analytics', 'settings', 'staff'];
+            views.forEach(v => {
+                const viewEl = document.getElementById(v + '-view');
+                if (viewEl) {
+                    viewEl.style.display = (v === viewId) ? 'block' : 'none';
+                    if (v !== 'bookings') {
+                        viewEl.classList.remove('active');
+                        if (v === viewId) viewEl.classList.add('active');
+                    }
+                }
+            });
+        }
+
+        // Update Greeting and Date
+        function updateGreeting() {
+            const now = new Date();
+            const hour = now.getHours();
+            const name = localStorage.getItem('srijes_user_name') || 'Admin';
+            let greeting = 'Good Morning,';
+            
+            if (hour >= 12 && hour < 17) greeting = 'Good Afternoon,';
+            else if (hour >= 17) greeting = 'Good Evening,';
+            
+            const greetingEl = document.getElementById('dashboard-greeting');
+            const dateEl = document.getElementById('dashboard-date');
+            
+            if (greetingEl) greetingEl.textContent = `${greeting} ${name.split(' ')[0]}`;
+            if (dateEl) {
+                const options = { weekday: 'long', month: 'long', day: 'numeric' };
+                dateEl.textContent = now.toLocaleDateString('en-US', options);
+            }
+        }
+
+        function switchSettingsTab(tabId, el) {
+            // Update Navigation
+            document.querySelectorAll('.set-nav-item').forEach(item => item.classList.remove('active'));
+            el.classList.add('active');
+
+            // Update Tab
+            document.querySelectorAll('.settings-tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById('set-tab-' + tabId).classList.add('active');
+        }
+
+        function saveAllSettings(btn) {
+            if (btn) {
+                btn.classList.add('loading');
+                btn.disabled = true;
+            }
+
+            // Simulate save
+            setTimeout(() => {
+                const settings = {
+                    name: document.getElementById('set-name')?.value,
+                    email: document.getElementById('set-email')?.value,
+                    phone: document.getElementById('set-phone')?.value,
+                    dob: document.getElementById('set-dob')?.value,
+                    lang: document.getElementById('set-lang')?.value,
+                    favSvcs: document.getElementById('set-fav-svcs')?.value,
+                    favStylist: document.getElementById('set-fav-stylist')?.value,
+                    reminderTime: document.getElementById('set-reminder-time')?.value
+                };
+
+                localStorage.setItem('srijes_client_settings', JSON.stringify(settings));
+                
+                if (btn) {
+                    btn.classList.remove('loading');
+                    btn.disabled = false;
+                }
+
+                alert('All settings saved successfully!');
+                switchView('overview');
+            }, 1000);
+        }
+
+        // Initialize Settings from localStorage
+        function loadSettings() {
+            const saved = localStorage.getItem('srijes_client_settings');
+            if (saved) {
+                const s = JSON.parse(saved);
+                if (document.getElementById('set-name')) document.getElementById('set-name').value = s.name || '';
+                if (document.getElementById('set-email')) document.getElementById('set-email').value = s.email || '';
+                if (document.getElementById('set-phone')) document.getElementById('set-phone').value = s.phone || '';
+                if (document.getElementById('set-dob')) document.getElementById('set-dob').value = s.dob || '';
+                if (document.getElementById('set-lang')) document.getElementById('set-lang').value = s.lang || 'en';
+                if (document.getElementById('set-fav-svcs')) document.getElementById('set-fav-svcs').value = s.favSvcs || '';
+                if (document.getElementById('set-fav-stylist')) document.getElementById('set-fav-stylist').value = s.favStylist || 'any';
+                if (document.getElementById('set-reminder-time')) document.getElementById('set-reminder-time').value = s.reminderTime || '24';
+            }
+            
+            // Also load from auth for profile tab
+            const authName = localStorage.getItem('srijes_user_name');
+            const authPhone = localStorage.getItem('srijes_user_phone');
+            if (authName && document.getElementById('set-name') && !document.getElementById('set-name').value) {
+                document.getElementById('set-name').value = authName;
+            }
+            if (authPhone && document.getElementById('set-phone') && !document.getElementById('set-phone').value) {
+                document.getElementById('set-phone').value = authPhone;
+            }
+        }
+
+        // Call loadSettings on switchView if settings is selected
+        const originalSwitchView = switchView;
+        switchView = function(viewId, el) {
+            originalSwitchView(viewId, el);
+            if (viewId === 'settings') {
+                loadSettings();
+            }
+        };
+
+        updateGreeting();
+
+        // Listen for messages from the booking module if needed
+        window.addEventListener('message', (event) => {
+            if (event.data === 'refreshData') {
+                console.log('Dashboard: Booking data refreshed');
+                // Could update stats here
+            }
+        });
+    </script>
+</body>
+
+</html>
